@@ -1,0 +1,38 @@
+#title {
+    width: 100vw;
+    height: 5vh;
+}
+
+#title-div {
+    background-color: silver;
+}
+
+.container-fluid {
+    height: 100vh;
+}
+
+#main {
+    padding-bottom: 15px;
+    background-position: center;
+    background-size: cover;
+    color:white;
+    position: relative;
+    width: 100vw;
+    
+}
+
+#main-display {
+    font-size: 20vh;
+}
+
+#temperature {
+    font-size: 13vw;
+    color:white
+}
+
+ul {
+    text-align: center;
+    list-style:none;
+    padding: 0;
+}
+
