@@ -31,7 +31,15 @@ async function getWeatherData(position:Position) {
     let {latitude,longitude} = position.coords
     let weather:Response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=f5b2fcba915a037ebff7f36dc5806378`)
     weatherData = await weather.json()
-    console.log('line 12 - ', weatherData)
+    console.log('line 34 - ', weatherData)
+}
+
+async function searchWeatherData() {
+    let city = (document.getElementById('city-input') as HTMLInputElement).value.toLowerCase()
+    let state = (document.getElementById('state-input') as HTMLInputElement).value.toLowerCase()
+    let weather:Response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${state},us&appid=f5b2fcba915a037ebff7f36dc5806378`)
+    weatherData = await weather.json()
+    console.log('line 42 - ', weatherData)
 }
 
 function loadData(cb:Function):void {
@@ -60,6 +68,20 @@ async function displayWeather(cb:Function) {
             case 'Clouds': 
                 weatherImage = Images.cloudyImg
                 break
+            case 'Clear':
+                weatherImage = Images.sunnyImg
+                break
+            case 'Rain':
+                weatherImage = Images.rainImg
+                break
+            case 'Snow': 
+                weatherImage = Images.snowImg
+                break
+            case 'Extreme':
+                weatherImage = Images.lightningImg
+                break
+            case 'Fog' || 'Foggy':
+                weatherImage = Images.fogImg
             default:
                 weatherImage = Images.sunnyImg
                 break
@@ -77,8 +99,8 @@ async function displayWeather(cb:Function) {
 
         backgroundNode.style.backgroundImage = `url(${weatherImage})`
         temperatureNode.innerText = `${Math.round(temp)}°F`
-        windNode.innerText = Math.round(windSpeed).toString() + " MPH"
-        humidityNode.innerText = Math.round(humidity).toString() + '%'
+        windNode.innerText = "Wind Speed: "+Math.round(windSpeed).toString() + " MPH"
+        humidityNode.innerText = "Humidity: "+Math.round(humidity).toString() + '%'
         locationNode.innerText = location.toUpperCase()
         forcastNode.innerText = `Forecast: ${(forecast != undefined)? forecast: 'No Prediction'}`
         tempRangeNode.innerText = `Low ${Math.round(temp_min)}° | High ${Math.round(temp_max)}°`
@@ -87,3 +109,33 @@ async function displayWeather(cb:Function) {
 }
 
 displayWeather(getWeatherData)
+
+
+let searchButton = document.getElementById('search-button') as HTMLSpanElement
+let inputButton = document.getElementById('input-button') as HTMLSpanElement
+
+searchButton.addEventListener('click', () => {
+    let bar = document.getElementById('searchbar') as HTMLDivElement
+    if(bar.style.display == 'none') {
+        bar.style.display = 'flex'
+        searchButton.innerText = 'arrow_downward'
+    } else {
+        bar.style.display = 'none'
+        searchButton.innerText = 'search'
+    }
+})
+
+inputButton.addEventListener('click',() => {
+    let cityInput = document.getElementById('city-input') as HTMLInputElement
+    let stateInput = document.getElementById('state-input') as HTMLInputElement
+    if(cityInput.value == null || cityInput.value == undefined || cityInput.value == '') {
+        cityInput.placeholder = 'Please enter a city'
+        cityInput.style.border = '3px solid red'
+    }else if(stateInput.value == null || stateInput.value == undefined || stateInput.value == '') {
+        stateInput.placeholder = '??'
+        stateInput.style.border = '3px solid red'
+    }
+    else {
+        displayWeather(searchWeatherData)
+    }
+})

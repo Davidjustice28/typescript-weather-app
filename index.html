@@ -12,17 +12,18 @@
 <body>
     <div class="container-fluid d-flex flex-column align-items-center app-screen">
         <div id="title-div" class="row text-uppercase text-center">
-            <h1 id="title" class="text-white d-flex align-items-center justify-content-center fst-italic"><span class="material-symbols-outlined text-primary fw-bold" >rainy</span>WeatherApp</h1>
+            <h1 id="title" class="text-white d-flex align-items-center justify-content-center fst-italic"><span class="material-symbols-outlined text-primary fw-bold" >rainy</span>WeatherApp<span id="search-button" class="material-symbols-outlined">search</span></h1>
+            <div id="searchbar" class="justify-content-center align-items-center gap-2"><label>City:</label><input id="city-input"><label>State:</label><input id="state-input" maxlength="2"><span id="input-button" class="material-symbols-outlined">search</span></div>
         </div>
         <div id="main" class="row justify-content-center h-100">
             <p id="location" class="text-center p-2 fw-bold"></p>
-            <div id="main-display" class="col-10 justify-content-center d-flex align-items-center gap-3">
-                <h1 id="temperature" class="col-5 text-center w-50 temp"><span></span></h1>
+            <div id="main-display" class="col-12 justify-content-center d-flex align-items-center gap-3">
+                <h1 id="temperature" class="col-5 text-center w-50 temp"><span>50° F</span></h1>
             </div>
-            <div class="col-10 info-div">
-                <p id="high-low" class="text-center"></p>
-                <p id="forecast" class="text-center"></p>
+            <div id="info-div" class="col-10 info-div">
                 <ul>
+                    <li id="high-low" class="text-center"></li>
+                    <li id="forecast" class="text-center"></li>
                     <li id="wind"></li>
                     <li id="humidity"></li>
                 </ul>
